@@ -10,34 +10,40 @@
                         @endforeach
 
                     </select>
-                    <input wire:model.live.debounce.300ms="search" type="text" placeholder="Seach..." class="border border-gray-300 p-1">
+                    <input wire:model.live.debounce.300ms="search" type="text" placeholder="Seach..."
+                        class="border border-gray-300 p-1">
                 </div>
                 @if (count($categories) < 1)
                     Category not found
                 @else
                     <table>
-                <thead>
-                    <tr class="grid grid-cols-[1fr_10fr_1fr] justify-items-start p-2">
-                        <th>ID  ↑ ↓ ⇅</th>
-                        <th>Name ↑ ↓ ⇅</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($categories as $category)
-                        <tr class="grid grid-cols-[1fr_10fr_1fr] justify-items-start items-center p-2 odd:bg-white even:bg-gray-50" wire:key="{{ $category->id }}">
-                            <td>{{ $category->id }}</td>
-                            <td>{{ $category->name }}</td>
-                            <td>
-                                <button wire:click="deleteCategory({{ $category->id }})" class="inline-flex items-center bg-red-100 border-0 py-1 px-3 focus:outline-none hover:bg-red-400 rounded text-base mt-4 md:mt-0 text-wite">Delete</button>
-                            </td>
-                        </tr>
-                    @endforeach
+                        <thead>
+                            <tr class="grid grid-cols-[1fr_10fr_1fr] justify-items-start p-2 ">
+                                @foreach ($fields as $key => $field)
+                                    <th wire:click='changeField("{{ $field }}")' class="cursor-pointer" wire:key='{{ $key }}'>
+                                        <x-sort :field="$field" :orderByField="$orderByField" :direction="$orderByDirection" />
+                                    </th>
+                                @endforeach
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($categories as $category)
+                                <tr class="grid grid-cols-[1fr_10fr_1fr] justify-items-start items-center p-2 odd:bg-white even:bg-gray-50"
+                                    wire:key="{{ $category->id }}">
+                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>
+                                        <button wire:click="deleteCategory({{ $category->id }})"
+                                            class="inline-flex items-center bg-red-100 border-0 py-1 px-3 focus:outline-none hover:bg-red-400 rounded text-base mt-4 md:mt-0 text-wite">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
 
 
-                </tbody>
-            </table>
-            {{ $categories->links() }}
+                        </tbody>
+                    </table>
+                    {{ $categories->links() }}
                 @endif
 
             </div>

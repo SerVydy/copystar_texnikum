@@ -14,9 +14,25 @@ class ListCategory extends Component
 
     public int $limit = 10;
 
-    public array $list_paginate = [10,25,50,100];
+    public array $list_paginate = [10,15,25,50];
 
     public string $search = '';
+
+    public string $orderByField = 'ID';
+
+    public string $orderByDirection = 'desc';
+
+    public array $fields = ['ID','Name'];
+
+    public function changeField($field)
+    {
+        if($this->orderByField == $field)
+        {
+            $this->orderByDirection = $this->orderByDirection == 'desc' ? 'asc' : 'desc';
+        }
+
+        $this->orderByField = $field;
+    }
 
     public function deleteCategory(Category $category)
     {
@@ -32,7 +48,8 @@ class ListCategory extends Component
     public function render()
     {
         $categories = Category::
-            whereLike('name','%' . $this->search . '%')
+            whereLike('name','%' . strtolower($this->search) . '%')
+            ->orderBy($this->orderByField, $this->orderByDirection)
             ->paginate($this->limit);
 
         return view('livewire.category.list-category', compact('categories'));

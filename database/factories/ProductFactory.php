@@ -17,13 +17,13 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->words(),
-            'price' => fake()->numberBetween(1000,10000),
-            'category_id' => fake()->numberBetween(36,43),
-            'country_id' => fake()->numberBetween(1,193),
+            'name' => fake()->word(3),
+            'category_id' => fake()->numberBetween(1,10),
             'description' => fake()->paragraph(),
-            'image' => asset('/storage/products/1.jpg'),
             'count' => fake()->numberBetween(1,10),
+            'price' => fake()->numberBetween(1000,10000),
+            'country_id' => fake()->numberBetween(1,193),
+            'image' => '/storage/products/1.png',
         ];
     }
 }

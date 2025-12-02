@@ -11,12 +11,21 @@
 </head>
 
 <body class="grid grid-cols-[1fr_4fr] h-screen">
-    <aside class="bg-black text-white ">
-        <h2>Боковое меню</h2>
+    <aside class="bg-black ">
+        <h2 class="text-gray-200">Боковое меню</h2>
         <ul>
-            <li><a href="{{ route('dashboard.category') }}">Category</a></li>
-            <li><a href="{{ route('dashboard.country') }}">Country</a></li>
-            <li><a href="{{ route('dashboard.user') }}">Users</a></li>
+            <li>
+               <x-dashboard.a route="dashboard.category" wire:navigate>Category</x-dashboard.a>
+            </li>
+            <li>
+               <x-dashboard.a route="dashboard.country" wire:navigate>Country</x-dashboard.a>
+            </li>
+            <li>
+               <x-dashboard.a route="dashboard.user" wire:navigate>Users</x-dashboard.a>
+            </li>
+            <li>
+                <x-dashboard.a route="dashboard.products" wire:navigate>Products</x-dashboard.a>
+            </li>
         </ul>
     </aside>
     <div class="container flex flex-col">
